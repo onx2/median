@@ -135,21 +135,19 @@ describe("median (handles even and odd length arrays)", () => {
       );
     }
 
+    // In MS
     function measureExecutionTime(
       size: number,
-      // ~25 iterations is enough to average out the data so that we can reasonably check if it is running in linear time.
-      iterations: number = 25,
+      iterations: number = 3,
     ): number {
-      const times = [];
+      let totalTime: number = 0;
       for (let i = 0; i < iterations; i++) {
         const arr = generateRandomArray(size);
         const start = performance.now();
         median(arr, arr.length);
-        const end = performance.now();
-        times.push(end - start);
+        totalTime += performance.now() - start;
       }
-      // Return the average execution time
-      return times.reduce((a, b) => a + b, 0) / times.length;
+      return totalTime / iterations;
     }
 
     function testmedianPerformance(): {
@@ -162,7 +160,13 @@ describe("median (handles even and odd length arrays)", () => {
         191000, 201000, 211000, 221000, 231000, 241000, 251000, 261000, 271000,
         281000, 291000, 301000, 311000, 321000, 331000, 341000, 351000, 361000,
         371000, 381000, 391000, 401000, 411000, 421000, 431000, 441000, 451000,
-        461000, 471000, 481000, 491000, 501000,
+        461000, 471000, 481000, 491000, 501000, 511000, 521000, 531000, 541000,
+        551000, 561000, 571000, 581000, 591000, 601000, 611000, 621000, 631000,
+        641000, 651000, 661000, 671000, 681000, 691000, 701000, 711000, 721000,
+        731000, 741000, 751000, 761000, 771000, 781000, 791000, 801000, 811000,
+        821000, 831000, 841000, 851000, 861000, 871000, 881000, 891000, 901000,
+        911000, 921000, 931000, 941000, 951000, 961000, 971000, 981000, 991000,
+        1001000,
       ];
       const times = sizes.map((size) => measureExecutionTime(size));
       return { sizes, times };
@@ -170,7 +174,6 @@ describe("median (handles even and odd length arrays)", () => {
 
     const { sizes, times } = testmedianPerformance();
 
-    console.log({ sizes, times });
     // Create data pairs for linear regression (size vs. time)
     const data = sizes.map((size, i) => [size, times[i]] as [number, number]);
 
