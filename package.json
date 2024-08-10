@@ -2,6 +2,7 @@
   "name": "@onx2/median",
   "version": "1.0.0",
   "description": "Find the median using quickselect, based on http://ndevilla.free.fr/median/median/src/quickselect.c",
+  "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -21,7 +22,7 @@
   "scripts": {
     "build": "vite build && tsc --project tsconfig.json",
     "build:types": "tsc --emitDeclarationOnly",
-    "test": "vitest run",
+    "test": "vitest run ./src/index.spec.ts",
     "prepare": "npm run build"
   },
   "repository": {

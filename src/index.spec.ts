@@ -157,7 +157,12 @@ describe("median (handles even and odd length arrays)", () => {
       times: number[];
     } {
       const sizes = [
-        10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000,
+        1000, 11000, 21000, 31000, 41000, 51000, 61000, 71000, 81000, 91000,
+        101000, 111000, 121000, 131000, 141000, 151000, 161000, 171000, 181000,
+        191000, 201000, 211000, 221000, 231000, 241000, 251000, 261000, 271000,
+        281000, 291000, 301000, 311000, 321000, 331000, 341000, 351000, 361000,
+        371000, 381000, 391000, 401000, 411000, 421000, 431000, 441000, 451000,
+        461000, 471000, 481000, 491000, 501000,
       ];
       const times = sizes.map((size) => measureExecutionTime(size));
       return { sizes, times };
@@ -165,6 +170,7 @@ describe("median (handles even and odd length arrays)", () => {
 
     const { sizes, times } = testmedianPerformance();
 
+    console.log({ sizes, times });
     // Create data pairs for linear regression (size vs. time)
     const data = sizes.map((size, i) => [size, times[i]] as [number, number]);
 
