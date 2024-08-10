@@ -57,13 +57,13 @@ export function median(arr: number[], n: number): number | undefined {
     }
   }
 
-  if (!Array.isArray(arr))
+  if (!Array.isArray(arr)) {
     return; // Invalid input
-  else if (arr.length <= 1)
+  } else if (arr.length <= 1) {
     return arr[0]; // Directly return the first element
-  else if (arr.length === 2)
+  } else if (arr.length === 2) {
     return (arr[0] + arr[1]) / 2; // Directly return the avg
-  else {
+  } else {
     const mid = (n - 1) >> 1;
     const left = quickSelectInternal(arr, 0, n - 1, mid);
 
