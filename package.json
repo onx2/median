@@ -1,0 +1,39 @@
+{
+  "name": "@onx2/median",
+  "version": "1.0.0",
+  "description": "Find the median using quickselect, based on http://ndevilla.free.fr/median/median/src/quickselect.c",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onx2/median.git"
+  },
+  "keywords": [
+    "quickselect",
+    "median",
+    "O(n)",
+    "median",
+    "linear",
+    "time",
+    "median",
+    "fast",
+    "median",
+    "search"
+  ],
+  "author": "Jeffrey Rooks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/onx2/median/issues"
+  },
+  "homepage": "https://github.com/onx2/median#readme",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.0.5",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}
