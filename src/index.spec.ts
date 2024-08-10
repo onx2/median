@@ -43,6 +43,20 @@ describe("median (handles even and odd length arrays)", () => {
     }
   }
 
+  it("should return undefined for an invalid input", () => {
+    const arr = [];
+    expect(median(arr, arr.length)).toBe(undefined);
+  });
+  it("should return undefined for an empty array", () => {
+    const arr = [];
+    expect(median(arr, arr.length)).toBe(undefined);
+  });
+
+  it("should find the median in an array with two items", () => {
+    const arr = [3, 1];
+    expect(median(arr, arr.length)).toBe(2);
+  });
+
   it("should find the median in an odd-length array", () => {
     const arr = [3, 1, 2];
     expect(median(arr, arr.length)).toBe(2);

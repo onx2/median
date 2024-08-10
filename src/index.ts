@@ -1,7 +1,7 @@
 // Typescript implementation of C quickselect
 // http://ndevilla.free.fr/median/median/
 // http://ndevilla.free.fr/median/median/src/quickselect.c
-export function median(arr: number[], n: number): number {
+export function median(arr: number[], n: number): number | undefined {
   function swap(arr: number[], i: number, j: number): void {
     const temp = arr[i]!;
     arr[i] = arr[j]!;
@@ -57,15 +57,22 @@ export function median(arr: number[], n: number): number {
     }
   }
 
-  const mid = (n - 1) >> 1;
+  if (!Array.isArray(arr))
+    return; // Invalid input
+  else if (arr.length <= 1)
+    return arr[0]; // Directly return the first element
+  else if (arr.length === 2)
+    return (arr[0] + arr[1]) / 2; // Directly return the avg
+  else {
+    const mid = (n - 1) >> 1;
+    const left = quickSelectInternal(arr, 0, n - 1, mid);
 
-  if ((n & 1) === 1) {
-    // Odd-length array: return the middle element
-    return quickSelectInternal(arr, 0, n - 1, mid);
-  } else {
+    if ((n & 1) === 1) {
+      // Odd-length array: return the middle element
+      return left;
+    }
+
     // Even-length array: return the average of the two middle elements
-    const leftMid = quickSelectInternal(arr, 0, n - 1, mid);
-    const rightMid = quickSelectInternal(arr, 0, n - 1, mid + 1);
-    return (leftMid + rightMid) / 2;
+    return (left + quickSelectInternal(arr, 0, n - 1, mid + 1)) / 2;
   }
 }
