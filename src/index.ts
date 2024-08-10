@@ -27,7 +27,7 @@ export function median(arr: number[], n: number): number {
       }
 
       // Find median of low, middle, and high items; swap into position low
-      const middle = (low + high - 1) >> 1;
+      const middle = (low + high) >> 1;
 
       if (arr[middle]! > arr[high]!) swap(arr, middle, high);
       if (arr[low]! > arr[high]!) swap(arr, low, high);
@@ -41,10 +41,8 @@ export function median(arr: number[], n: number): number {
       let hh = high;
 
       while (true) {
-        do ll++;
-        while (arr[ll]! < arr[low]!);
-        do hh--;
-        while (arr[hh]! > arr[low]!);
+        while (arr[++ll]! < arr[low]!); // Pre-increment to avoid extra operations
+        while (arr[--hh]! > arr[low]!); // Pre-decrement to avoid extra operations
 
         if (hh < ll) break;
 
