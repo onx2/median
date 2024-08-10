@@ -27,7 +27,7 @@ export function median(arr: number[], n: number): number {
       }
 
       // Find median of low, middle, and high items; swap into position low
-      const middle = Math.floor((low + high) / 2);
+      const middle = (low + high - 1) >> 1;
 
       if (arr[middle]! > arr[high]!) swap(arr, middle, high);
       if (arr[low]! > arr[high]!) swap(arr, low, high);
@@ -60,9 +60,9 @@ export function median(arr: number[], n: number): number {
     }
   }
 
-  const mid = Math.floor((n - 1) / 2);
+  const mid = (n - 1) >> 1;
 
-  if (n % 2 === 1) {
+  if ((n & 1) === 1) {
     // Odd-length array: return the middle element
     return quickSelectInternal(arr, 0, n - 1, mid);
   } else {
