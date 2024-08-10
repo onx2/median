@@ -1,6 +1,7 @@
 import { defineConfig, type Plugin } from "vite";
 import { resolve } from "path";
 import { minify } from "terser";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const minifyBundle = (): Plugin => ({
   name: "minify-bundle",
@@ -26,7 +27,21 @@ const minifyBundle = (): Plugin => ({
   },
 });
 export default defineConfig({
-  plugins: [minifyBundle()],
+  plugins: [
+    minifyBundle(),
+    /**
+     * @note MUST COME LAST
+     *
+     * Generates a visualization of the bundle to analyze packages and their sizes
+     * @doc https://github.com/btd/rollup-plugin-visualizer
+     *
+     */
+    visualizer({
+      template: "raw-data",
+      brotliSize: true,
+      gzipSize: true,
+    }),
+  ],
   build: {
     lib: {
       name: "median",

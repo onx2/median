@@ -1,12 +1,61 @@
-// Typescript implementation of C quickselect
+// Typescript implementation of C quickselect with median of medians and in place median
 // http://ndevilla.free.fr/median/median/
 // http://ndevilla.free.fr/median/median/src/quickselect.c
 export function median(arr: number[], n: number): number | undefined {
   function swap(arr: number[], i: number, j: number): void {
-    const temp = arr[i]!;
-    arr[i] = arr[j]!;
-    arr[j] = temp;
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+  function orderAsc(a: number, b: number) {
+    return a - b;
+  }
+  function inPlaceMedian(arr: number[], low: number, high: number): number {
+    // Base case: For very small arrays, sorting might be efficient
+    if (high - low <= 4) {
+      arr.slice(low, high + 1).sort(orderAsc);
+      return arr[low + ((high - low) >> 1)];
+    }
+
+    const pivotIndex = high;
+    const pivot = arr[pivotIndex];
+
+    // Partition the array around the pivot
+    let i = low;
+    for (let j = low; j < high; j++) {
+      if (arr[j] < pivot) {
+        swap(arr, i, j);
+        i++;
+      }
+    }
+    swap(arr, i, pivotIndex);
+
+    const middle = (low + high) >> 1;
+    if (i === middle) {
+      return arr[i];
+    } else if (i > middle) {
+      return inPlaceMedian(arr, low, i - 1);
+    }
+
+    return inPlaceMedian(arr, i + 1, high);
+  }
+  function medianOfMedians(arr: number[]): number {
+    if (arr.length <= 5) {
+      arr.sort(orderAsc);
+      return arr[arr.length >> 1];
+    }
+
+    const numGroups = Math.ceil(arr.length / 5);
+
+    for (let i = 0; i < numGroups; i++) {
+      const startIndex = i * 5;
+      const endIndex = Math.min(startIndex + 4, arr.length - 1);
+      inPlaceMedian(arr, startIndex, endIndex);
+    }
+
+    const medians = arr.slice(0, numGroups);
+
+    return medianOfMedians(medians);
+  }
+
   function quickSelectInternal(
     arr: number[],
     low: number,
@@ -25,11 +74,12 @@ export function median(arr: number[], n: number): number | undefined {
         return arr[k]!;
       }
 
-      // Find median of low, middle, and high items; swap into position low
+      //  median-of-medians approach
       const middle = (low + high) >> 1;
+      const pivot = medianOfMedians([arr[low], arr[middle], arr[high]]);
 
-      if (arr[middle]! > arr[high]!) swap(arr, middle, high);
-      if (arr[low]! > arr[high]!) swap(arr, low, high);
+      if (arr[middle]! > pivot) swap(arr, middle, high);
+      if (arr[low]! > pivot) swap(arr, low, high);
       if (arr[middle]! > arr[low]!) swap(arr, middle, low);
 
       // Swap low item (now in position middle) into position (low + 1)
