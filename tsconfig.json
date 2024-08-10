@@ -12,5 +12,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"], // Include all TypeScript files in src
-  "exclude": ["node_modules", "dist", "src/**/*.spec.ts"] // Exclude node_modules and dist folders
+  "exclude": ["node_modules", "dist", "src/**/*.spec.ts", "src/**/*.map"] // Exclude node_modules and dist folders
 }

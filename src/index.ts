@@ -1,13 +1,12 @@
-function swap(arr: number[], i: number, j: number): void {
-  const temp = arr[i]!;
-  arr[i] = arr[j]!;
-  arr[j] = temp;
-}
-
 // Typescript implementation of C quickselect
 // http://ndevilla.free.fr/median/median/
 // http://ndevilla.free.fr/median/median/src/quickselect.c
 export function median(arr: number[], n: number): number {
+  function swap(arr: number[], i: number, j: number): void {
+    const temp = arr[i]!;
+    arr[i] = arr[j]!;
+    arr[j] = temp;
+  }
   function quickSelectInternal(
     arr: number[],
     low: number,
