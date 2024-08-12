@@ -4,7 +4,7 @@ Find the median of an array of numbers in `O(n)` _(linear)_ average time, based 
 
 The sort-by and quickselect approaches were compared at each size, taking the average time to run between 10 iterations.
 
-![Benchmark Results](./median-benchmarks.png)
+![Benchmark Results](./benchmark-results.png)
 
 ```ts
 const data = [
