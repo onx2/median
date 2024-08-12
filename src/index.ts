@@ -8,14 +8,39 @@ export function median(arr: number[], n: number): number | undefined {
   function orderAsc(a: number, b: number) {
     return a - b;
   }
+
   function inPlaceMedian(arr: number[], low: number, high: number): number {
     // Base case: For very small arrays, sorting might be efficient
     if (high - low <= 4) {
-      arr.slice(low, high + 1).sort(orderAsc);
+      arr.sort(orderAsc); // Sort the original subarray
       return arr[low + ((high - low) >> 1)];
     }
 
-    const pivotIndex = high;
+    // Median-of-three pivot selection
+    const mid = low + ((high - low) >> 1);
+    const left = arr[low];
+    const right = arr[high];
+    const median = arr[mid];
+
+    let pivotIndex;
+    if (left < median) {
+      if (median < right) {
+        pivotIndex = mid;
+      } else if (left < right) {
+        pivotIndex = high;
+      } else {
+        pivotIndex = low;
+      }
+    } else {
+      if (left < right) {
+        pivotIndex = low;
+      } else if (median < right) {
+        pivotIndex = high;
+      } else {
+        pivotIndex = mid;
+      }
+    }
+
     const pivot = arr[pivotIndex];
 
     // Partition the array around the pivot
@@ -37,6 +62,7 @@ export function median(arr: number[], n: number): number | undefined {
 
     return inPlaceMedian(arr, i + 1, high);
   }
+
   function medianOfMedians(arr: number[]): number {
     if (arr.length <= 5) {
       arr.sort(orderAsc);
